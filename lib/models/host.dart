@@ -1,3 +1,5 @@
+import 'package:equatable/equatable.dart';
+
 class Host {
   final String hostname;
   final String ip;
@@ -64,4 +66,18 @@ class Location {
       name: json['name'],
     );
   }
+}
+
+class ResultHosts extends Equatable {
+  final List<Host>? hosts;
+  final String error;
+
+  const ResultHosts({this.hosts, required this.error});
+
+  factory ResultHosts.defaultResult() {
+    return const ResultHosts(hosts: null, error: '');
+  }
+
+  @override
+  List<Object?> get props => [hosts, error];
 }

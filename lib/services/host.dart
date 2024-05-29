@@ -4,7 +4,7 @@ import 'package:acar/models/host.dart';
 import 'package:http/http.dart' as http;
 
 class HostApiService {
-  Future<List<Host>> fetchHostByFileName(String token, String fileName) async {
+  Future<List<Host>> fetchHostsByFileName(String token, String fileName) async {
     final Uri uri = Uri.parse('$apiUrl/data/$fileName');
 
     try {
