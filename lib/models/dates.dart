@@ -1,3 +1,5 @@
+import 'package:equatable/equatable.dart';
+
 class Dates {
   final String name;
   final int sstpCount;
@@ -16,4 +18,18 @@ class Dates {
       byteSize: json['byteSize'],
     );
   }
+}
+
+class ResultDates extends Equatable {
+  final List<Dates>? dates;
+  final String error;
+
+  const ResultDates({this.dates, required this.error});
+
+  factory ResultDates.defaultResult() {
+    return const ResultDates(dates: null, error: '');
+  }
+
+  @override
+  List<Object?> get props => [dates, error];
 }
