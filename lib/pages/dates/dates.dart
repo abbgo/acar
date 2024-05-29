@@ -1,5 +1,6 @@
 import 'package:acar/helpers/functions/methods/widgets.dart';
 import 'package:acar/models/dates.dart';
+import 'package:acar/pages/hosts/hosts.dart';
 import 'package:acar/providers/models/dates.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -29,7 +30,10 @@ class DatesPage extends ConsumerWidget {
                 color: Colors.blueAccent,
                 elevation: 3,
                 child: ListTile(
-                  onTap: () {},
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const HostsPage()),
+                  ),
                   title: Text(
                     file.name.substring(0, 10),
                     style: const TextStyle(
