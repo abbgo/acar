@@ -10,9 +10,6 @@ var fetchFilesProvider = FutureProvider<ResultDates>(
     ResultDates result = ResultDates.defaultResult();
     String token = ref.read(tokenProvider);
 
-    print('------------------------------------------------------------------');
-    print(token);
-
     try {
       List<Dates> files = await ref.read(dateApiProvider).fetchFiles(token);
       result = ResultDates(error: '', dates: files);

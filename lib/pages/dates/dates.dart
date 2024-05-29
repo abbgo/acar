@@ -11,12 +11,40 @@ class DatesPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     AsyncValue<ResultDates> files = ref.watch(fetchFilesProvider);
 
-    return files.when(
-      data: (data) {
-        return const Center(child: Text('Dates page'));
-      },
-      error: (error, stackTrace) => errorMethod(error),
-      loading: () => loadMethod(),
+    return Padding(
+      padding: const EdgeInsets.only(left: 10, top: 10, right: 10),
+      child: files.when(
+        data: (data) {
+          if (data.error != '') {
+            return const Center(child: Text('Yalnyslyk yuze cykdy'));
+          }
+
+          List<Dates> files = data.dates!;
+          return ListView.builder(
+            physics: const BouncingScrollPhysics(),
+            itemCount: files.length,
+            itemBuilder: (context, index) {
+              Dates file = files[index];
+              return Card(
+                color: Colors.blueAccent,
+                elevation: 3,
+                child: ListTile(
+                  onTap: () {},
+                  title: Text(
+                    file.name.substring(0, 10),
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              );
+            },
+          );
+        },
+        error: (error, stackTrace) => errorMethod(error),
+        loading: () => loadMethod(),
+      ),
     );
   }
 }
