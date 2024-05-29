@@ -9,13 +9,13 @@ class DatesPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    AsyncValue<ResultDates> files = ref.watch(fetchFilesProvider);
+    AsyncValue<ResultDates> files = ref.watch(fetchFilesProvider(context));
 
     return Padding(
       padding: const EdgeInsets.only(left: 10, top: 10, right: 10),
       child: files.when(
         data: (data) {
-          if (data.error != '') {
+          if (data.error != '' || data.dates == null) {
             return const Center(child: Text('Yalnyslyk yuze cykdy'));
           }
 
