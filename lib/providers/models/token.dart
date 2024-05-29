@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final tokenApiProvider = Provider<TokenApiService>((ref) => TokenApiService());
 
-var fetchProductProvider = FutureProvider.family<ResultToken, TokenParams>(
+var fetchTokenProvider = FutureProvider.family<ResultToken, TokenParams>(
   (ref, params) async {
     ResultToken result = ResultToken.defaultResult();
 

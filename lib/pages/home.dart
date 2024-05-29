@@ -1,3 +1,4 @@
+import 'package:acar/pages/dates/dates.dart';
 import 'package:acar/pages/login/login.dart';
 import 'package:acar/providers/local_storadge.dart';
 import 'package:flutter/material.dart';
@@ -14,9 +15,7 @@ class HomePage extends ConsumerWidget {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: Colors.white,
-        body: token.isEmpty
-            ? LoginPage()
-            : const Center(child: Text('Other page')),
+        body: token.isEmpty ? LoginPage() : const DatesPage(),
       ),
     );
   }

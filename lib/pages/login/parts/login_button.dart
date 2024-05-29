@@ -35,7 +35,7 @@ class LoginButton extends ConsumerWidget {
               TokenParams(code: codeCtrl.text, deviceID: deviceID);
 
           ResultToken resultToken =
-              await ref.watch(fetchProductProvider(params).future);
+              await ref.watch(fetchTokenProvider(params).future);
 
           if (resultToken.token!.token != null) {
             ref.read(tokenProvider.notifier).update(resultToken.token!.token!);
