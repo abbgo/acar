@@ -8,4 +8,12 @@ class Dates {
   factory Dates.defaultResult() {
     return Dates(name: '', sstpCount: 0, byteSize: 0);
   }
+
+  factory Dates.fromJson(Map<String, dynamic> json) {
+    return Dates(
+      name: json['name'],
+      sstpCount: json['sstpCount'],
+      byteSize: json['byteSize'],
+    );
+  }
 }
