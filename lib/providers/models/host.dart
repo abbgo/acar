@@ -1,3 +1,4 @@
+import 'package:acar/helpers/functions/ping.dart';
 import 'package:acar/models/host.dart';
 import 'package:acar/providers/internet.dart';
 import 'package:acar/providers/local_storadge.dart';
@@ -10,6 +11,8 @@ var fetchHostsByFileNameProvider =
     FutureProvider.family<ResultHosts, HostParams>(
   (ref, params) async {
     ResultHosts result = ResultHosts.defaultResult();
+    List<Host> resultHosts = [];
+
     String token = ref.read(tokenProvider);
     bool hasInternet =
         await ref.read(checkInternetConnProvider(params.context!).future);
@@ -19,7 +22,15 @@ var fetchHostsByFileNameProvider =
         List<Host> hosts = await ref
             .read(hostsApiProvider)
             .fetchHostsByFileName(token, params.filename);
-        result = ResultHosts(error: '', hosts: hosts);
+
+        for (Host host in hosts) {
+          bool isActive = await isActiveHost(host.hostname);
+          if (isActive) {
+            resultHosts.add(host);
+          }
+        }
+
+        result = ResultHosts(error: '', hosts: resultHosts);
       } catch (e) {
         result = ResultHosts(error: e.toString());
       }
