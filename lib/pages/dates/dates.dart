@@ -4,6 +4,7 @@ import 'package:acar/pages/hosts/hosts.dart';
 import 'package:acar/providers/models/dates.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 
 class DatesPage extends ConsumerWidget {
   const DatesPage({super.key});
@@ -20,7 +21,14 @@ class DatesPage extends ConsumerWidget {
             return const Center(child: Text('Yalnyslyk yuze cykdy'));
           }
 
+          // maglumatlar senesi boyunca ulydan-kica sort edilyar
+          DateFormat format = DateFormat("yyyy-MM-dd");
           List<Dates> files = data.dates!;
+          files.sort(
+            (b, a) => format
+                .parse(a.name.substring(0, 10))
+                .compareTo(format.parse(b.name.substring(0, 10))),
+          );
           return ListView.builder(
             physics: const BouncingScrollPhysics(),
             itemCount: files.length,
