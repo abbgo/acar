@@ -43,7 +43,8 @@ class HostsPage extends StatelessWidget {
               );
             },
             error: (error, stackTrace) => errorMethod(error),
-            loading: () => loadMethod(),
+            loading: () =>
+                const Center(child: Text('Garasmagynyzy hayys edyaris ...')),
           );
         },
       ),

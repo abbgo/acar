@@ -1,7 +1,10 @@
+import 'dart:async';
 import 'package:dart_ping/dart_ping.dart';
 
 Future<bool> isActiveHost(String host) async {
   bool result = true;
+  final Completer<bool> completer = Completer<bool>();
+
   try {
     final ping = Ping(host, count: 2);
 
@@ -12,13 +15,13 @@ Future<bool> isActiveHost(String host) async {
           result = false;
         }
       },
-      onDone: () {},
-      onError: (error) {
-        result = false;
+      onDone: () {
+        completer.complete(result);
       },
+      onError: (error) {},
     );
   } catch (e) {
-    result = false;
+    //
   }
-  return result;
+  return completer.future;
 }
