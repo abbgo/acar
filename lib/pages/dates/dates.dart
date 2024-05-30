@@ -40,7 +40,11 @@ class DatesPage extends ConsumerWidget {
                 child: ListTile(
                   onTap: () => Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const HostsPage()),
+                    MaterialPageRoute(
+                      builder: (context) => HostsPage(
+                        filename: file.name,
+                      ),
+                    ),
                   ),
                   title: Text(
                     file.name.substring(0, 10),

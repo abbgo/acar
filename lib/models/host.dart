@@ -43,7 +43,7 @@ class Host {
       info2: json['info2'],
       id: json['id'],
       key: json['key'],
-      location: json['location'],
+      location: Location.fromJson(json['location']),
     );
   }
 }
