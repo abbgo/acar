@@ -36,7 +36,7 @@ class LoginButton extends ConsumerWidget {
         }
 
         if (codeCtrl.text.isEmpty || codeCtrl.text == '') {
-          if (context.mounted) showSomeErr(context, 'Login nomerinizi yazyn !');
+          if (context.mounted) showSomeErr(context, 'Login nomeriňizi ýazyň !');
           ref.read(loadLoginProvider.notifier).state = false;
           return;
         }

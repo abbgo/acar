@@ -20,7 +20,6 @@ class HostsPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text('Hosts'),
         elevation: 0,
         scrolledUnderElevation: 0,
         backgroundColor: Colors.white,
@@ -35,8 +34,14 @@ class HostsPage extends StatelessWidget {
 
             return hosts.when(
               data: (data) {
-                if (data.error != '' || data.hosts == null) {
+                if (data.error != '') {
                   return const Center(child: Text('Yalnyslyk yuze cykdy'));
+                }
+
+                if (data.hosts == null || data.hosts == []) {
+                  return const Center(
+                      child: Text(
+                          'Işleýän serwer tapylmady yza gaýdyp başga serweri barlaň !'));
                 }
 
                 List<Host> hosts = data.hosts!;
@@ -50,15 +55,26 @@ class HostsPage extends StatelessWidget {
                       color: Colors.blueAccent,
                       elevation: 3,
                       child: ListTile(
-                        title: Text(host.location.country),
-                        subtitle: Text('${host.ip}:${host.port}'),
+                        title: Text(
+                          host.location.country,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        subtitle: Text(
+                          '${host.ip}:${host.port}',
+                          style: const TextStyle(color: Colors.white),
+                        ),
                         trailing: IconButton(
                           onPressed: () async {
-                            await copyToClipboard(host.toString());
+                            await copyToClipboard(host.hostname.toString());
                             if (context.mounted) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
-                                  content: Text('Maglumatlar kopyalandy !'),
+                                  duration: Duration(seconds: 3),
+                                  backgroundColor: Colors.green,
+                                  content: Text('Maglumatlar kopýalandy !'),
                                 ),
                               );
                             }
@@ -71,12 +87,7 @@ class HostsPage extends StatelessWidget {
                 );
               },
               error: (error, stackTrace) => errorMethod(error),
-              loading: () => const Center(
-                child: Text(
-                  'Garasmagynyzy hayys edyaris ...',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-              ),
+              loading: () => loadMethod(),
             );
           },
         ),

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 void showIntConnErr(BuildContext context) {
   var snackBar = const SnackBar(
     content: Text(
-      'Internet baglanysy yok',
+      'Internet baglanyşygy ýok !',
       style: TextStyle(color: Colors.white),
     ),
     duration: Duration(seconds: 3),
