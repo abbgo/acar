@@ -12,5 +12,5 @@ final tokenProvider = createPrefProvider<String>(
 final uuidProvider = createPrefProvider<String>(
   prefs: (_) => prefs,
   prefKey: "uuid",
-  defaultValue: '',
+  defaultValue: '2ab5ab63-b554-4015-bf11-fb9cef4c0ad0',
 );

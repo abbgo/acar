@@ -31,7 +31,9 @@ class LoginButton extends ConsumerWidget {
           await ref.read(uuidProvider.notifier).update(uuid);
         }
 
-        if (codeCtrl.text.isEmpty || codeCtrl.text == '') return;
+        if (codeCtrl.text.isEmpty || codeCtrl.text == '') {
+          if (context.mounted) showSomeErr(context, 'Login nomerinizi yazyn !');
+        }
 
         if (context.mounted) {
           hasInternet =

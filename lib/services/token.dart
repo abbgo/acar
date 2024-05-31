@@ -14,11 +14,13 @@ class TokenApiService {
     };
 
     try {
-      http.Response response = await http.post(
-        uri,
-        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-        body: formData,
-      );
+      http.Response response = await http
+          .post(
+            uri,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            body: formData,
+          )
+          .timeout(const Duration(seconds: 10));
       var jsonData = json.decode(response.body);
 
       if (response.statusCode == 200 && jsonData['status']) {
