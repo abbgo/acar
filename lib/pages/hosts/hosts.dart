@@ -40,8 +40,10 @@ class HostsPage extends StatelessWidget {
 
                 if (data.hosts == null || data.hosts == []) {
                   return const Center(
-                      child: Text(
-                          'Işleýän serwer tapylmady yza gaýdyp başga serweri barlaň !'));
+                    child: Text(
+                      'Işleýän serwer tapylmady yza gaýdyp başga serweri barlaň !',
+                    ),
+                  );
                 }
 
                 List<Host> hosts = data.hosts!;
