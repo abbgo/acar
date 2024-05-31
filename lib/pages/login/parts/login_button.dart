@@ -5,6 +5,7 @@ import 'package:acar/models/token.dart';
 import 'package:acar/providers/internet.dart';
 import 'package:acar/providers/local_storadge.dart';
 import 'package:acar/providers/models/token.dart';
+import 'package:acar/providers/pages/login.dart';
 import 'package:acar/services/token.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -17,11 +18,13 @@ class LoginButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     String oldUUID = ref.watch(uuidProvider);
+    bool loadLogin = ref.watch(loadLoginProvider);
 
     return ElevatedButton(
       style: ElevatedButton.styleFrom(backgroundColor: elevatedButtonColor),
       onPressed: () async {
-        bool hasInternet = true;
+        ref.read(loadLoginProvider.notifier).state = true;
+        bool hasInternet = false;
         String uuid = '';
 
         if (oldUUID != '') {
@@ -33,6 +36,8 @@ class LoginButton extends ConsumerWidget {
 
         if (codeCtrl.text.isEmpty || codeCtrl.text == '') {
           if (context.mounted) showSomeErr(context, 'Login nomerinizi yazyn !');
+          ref.read(loadLoginProvider.notifier).state = false;
+          return;
         }
 
         if (context.mounted) {
@@ -46,15 +51,31 @@ class LoginButton extends ConsumerWidget {
           ResultToken resultToken =
               await ref.watch(fetchTokenProvider(params).future);
 
-          if (resultToken.token!.token != null) {
+          if (resultToken.token != null) {
             ref.read(tokenProvider.notifier).update(resultToken.token!.token!);
+            ref.read(loadLoginProvider.notifier).state = false;
             return;
           }
 
           if (context.mounted) showSomeErr(context, resultToken.error);
+          ref.read(loadLoginProvider.notifier).state = false;
         }
       },
-      child: const Text('Login', style: TextStyle(color: Colors.white)),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Text('Login', style: TextStyle(color: Colors.white)),
+          const SizedBox(width: 10),
+          if (loadLogin)
+            const SizedBox(
+              height: 20,
+              width: 20,
+              child: CircularProgressIndicator(color: Colors.white),
+            )
+          else
+            const SizedBox(),
+        ],
+      ),
     );
   }
 }

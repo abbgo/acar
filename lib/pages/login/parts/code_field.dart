@@ -9,6 +9,7 @@ class CodeField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      keyboardType: TextInputType.number,
       controller: codeCtrl,
       autofocus: true,
       textAlignVertical: TextAlignVertical.center,
