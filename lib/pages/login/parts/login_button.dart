@@ -23,6 +23,7 @@ class LoginButton extends ConsumerWidget {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(backgroundColor: elevatedButtonColor),
       onPressed: () async {
+        FocusScope.of(context).unfocus();
         ref.read(loadLoginProvider.notifier).state = true;
         bool hasInternet = false;
         String uuid = '';
