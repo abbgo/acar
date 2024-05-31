@@ -8,3 +8,9 @@ final tokenProvider = createPrefProvider<String>(
   prefKey: "token",
   defaultValue: '',
 );
+
+final uuidProvider = createPrefProvider<String>(
+  prefs: (_) => prefs,
+  prefKey: "uuid",
+  defaultValue: '',
+);

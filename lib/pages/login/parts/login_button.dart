@@ -16,12 +16,20 @@ class LoginButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    String oldUUID = ref.watch(uuidProvider);
+
     return ElevatedButton(
       style: ElevatedButton.styleFrom(backgroundColor: elevatedButtonColor),
       onPressed: () async {
         bool hasInternet = true;
+        String uuid = '';
 
-        String deviceID = await getDeviceId();
+        if (oldUUID != '') {
+          uuid = oldUUID;
+        } else {
+          uuid = await generateUUID();
+          await ref.read(uuidProvider.notifier).update(uuid);
+        }
 
         if (codeCtrl.text.isEmpty || codeCtrl.text == '') return;
 
@@ -31,8 +39,7 @@ class LoginButton extends ConsumerWidget {
         }
 
         if (hasInternet) {
-          TokenParams params =
-              TokenParams(code: codeCtrl.text, deviceID: deviceID);
+          TokenParams params = TokenParams(code: codeCtrl.text, deviceID: uuid);
 
           ResultToken resultToken =
               await ref.watch(fetchTokenProvider(params).future);
