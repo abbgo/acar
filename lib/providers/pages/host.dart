@@ -13,3 +13,4 @@ final resultHostsProvider =
     StateNotifierProvider.autoDispose<ResultHostsProvider, List<Host>>(
   (ref) => ResultHostsProvider(),
 );
+final loadHostsProvider = StateProvider.autoDispose<bool>((ref) => true);
